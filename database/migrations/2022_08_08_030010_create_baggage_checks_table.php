@@ -14,8 +14,14 @@ class CreateBaggageChecksTable extends Migration
     public function up()
     {
         Schema::create('baggage_checks', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->string('check_result');
+            $table->softDeletes();
             $table->timestamps();
+            $table->bigInteger('booking_id')->unsigned();
+            $table->bigInteger('passenger_id')->unsigned();
+            $table->foreign('booking_id')->references('id')->on('bookings');
+            $table->foreign('passenger_id')->references('id')->on('passengers');
         });
     }
 

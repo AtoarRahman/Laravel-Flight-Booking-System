@@ -14,8 +14,13 @@ class CreateSecurityChecksTable extends Migration
     public function up()
     {
         Schema::create('security_checks', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->string('check_result');
+            $table->string('comments');
+            $table->softDeletes();
             $table->timestamps();
+            $table->bigInteger('passenger_id')->unsigned();
+            $table->foreign('passenger_id')->references('id')->on('passengers');
         });
     }
 

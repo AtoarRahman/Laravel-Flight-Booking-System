@@ -14,8 +14,13 @@ class CreateFlightManifestsTable extends Migration
     public function up()
     {
         Schema::create('flight_manifests', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->softDeletes();
             $table->timestamps();
+            $table->bigInteger('booking_id')->unsigned();
+            $table->bigInteger('flight_id')->unsigned();
+            $table->foreign('booking_id')->references('id')->on('bookings');
+            $table->foreign('flight_id')->references('id')->on('flights');
         });
     }
 

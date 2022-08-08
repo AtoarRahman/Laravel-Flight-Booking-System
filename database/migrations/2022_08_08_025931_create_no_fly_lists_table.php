@@ -14,8 +14,14 @@ class CreateNoFlyListsTable extends Migration
     public function up()
     {
         Schema::create('no_fly_lists', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->date('active_from');
+            $table->date('active_to');
+            $table->string('no_fly_reason');
+            $table->softDeletes();
             $table->timestamps();
+            $table->bigInteger('passenger_id')->unsigned();
+            $table->foreign('passenger_id')->references('id')->on('passengers');
         });
     }
 
